@@ -8,9 +8,20 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </head>
 
   <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
+    <% if user_signed_in? %>
+      logged in as <strong><%= current_user.email %></strong>.
+      <%= link_to "Edit Profile", edit_user_registration_path %>
+      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path %> or 
+      <%= link_to "Login", new_user_session_path %>
+    <% end %>
   </body>
 </html>
