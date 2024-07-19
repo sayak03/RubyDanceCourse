@@ -1,0 +1,39 @@
+
+.navbar-brand{
+    text-transform: uppercase;
+	letter-spacing: 2px;
+	font-size: 18px;
+	cursor: pointer;
+}
+.nav-link{
+    color: rgb(128, 128, 128);
+    font-weight: 500;
+    position: relative;
+}
+.nav-link:hover, .nav-link.active {
+    color: #000;
+}
+@media (min-width: 991px){
+    .nav-link::before{
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: #b7e0fd;
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+    .nav-link:hover:before{
+        width: 100%;
+        visibility: visible;
+    }
+}
+@media (max-width: 991px){
+    .sidebar{
+        background-color: rgba(225,225,225,0.15);
+        backdrop-filter: blur(10px);
+    }
+}

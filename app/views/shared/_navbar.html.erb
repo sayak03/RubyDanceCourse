@@ -1,0 +1,40 @@
+<nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Dance Academy</a>
+    <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header text-white border-bottom">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+        <button type="button" class="btn-close text-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column flex-lg-row p-2">
+        <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
+          <li class="nav-item mx-2">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
+        <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-2">
+        <% if user_signed_in? %>
+            <strong class="me-1 md-2"><%= current_user.email %></strong>
+            <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-outline-primary rounded-4" %>
+            <%= link_to "Sign out", destroy_user_session_path, class: "btn btn-outline-success rounded-4", data: {turbo_method: :delete}%>
+        <% else %>
+            <%= link_to "Login", new_user_session_path, class: "btn btn-outline-success me-1 md-2 rounded-4" %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "text-white rounded-4 btn btn-success" %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
