@@ -1,0 +1,10 @@
+<div class="container mt-4">
+  <% flash.each do |name, msg| %>
+    <% if msg.is_a?(String) %>
+      <div class="alert-dismissible fade show alert alert-<%= flash_class_name(name) %>" role="alert">
+        <strong><%= content_tag :div, msg, :id => "flash_#{name}" %></strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+  <% end %>
+</div>
