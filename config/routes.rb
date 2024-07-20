@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :users, only: [:index, :edit, :update]
+  delete "users/:id", to: "users#destroy"
   devise_for :users, controllers: {
         sessions: 'users/sessions',
         passwords: 'users/passwords',

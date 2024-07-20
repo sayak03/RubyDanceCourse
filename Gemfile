@@ -75,3 +75,5 @@ gem "sassc-rails"
 gem "jquery-rails"
 
 gem "rails-ujs"
+
+gem "rolify"
