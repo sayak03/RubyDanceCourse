@@ -12,6 +12,28 @@
         <%= link_to 'Subscribe', new_course_subscription_path(@course), class: "btn btn-primary" %>
       <% end %>
     </div>
+    <div class="card-body">
+      <h2>Comments</h2>
+      <%= form_with(model: [@course, @course.comments.build], local: true) do |form| %>
+        <div class="input-group">
+          <span class="input-group-text"><%= current_user.first_name %></span>
+          <%= form.text_area :content, class: "form-control", rows: 1, placeholder: "Write a comment..." %>
+          <%= form.submit 'Add Comment', class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="card-body">
+      <ul>
+        <% @course.comments.each do |comment| %>
+          <li>
+            <p><strong ><%= comment.user ? comment.user.first_name : "Unknown User" %>: </strong> <%= comment.content %></p>
+            <% if comment.user == current_user || current_user.has_role?(:admin) %>
+              <%= link_to 'Delete', course_comment_path(@course, comment), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
     <div class="card-footer text-muted">
       <%= link_to 'Back to Courses', courses_path, class: "btn btn-secondary" %>
       <% if current_user.has_role?(:admin) || current_user.has_role?(:moderate) %>

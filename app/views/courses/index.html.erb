@@ -14,7 +14,7 @@
           <% elsif !current_user.subscribed?(course) %>
             <%= link_to 'Subscribe', new_course_subscription_path(course), class: "btn btn-primary btn-sm" %>
           <% else %>
-            <p class="mb-1">You are subscribed to this course.</p>
+            <%= link_to 'Show', course, class: "btn btn-info btn-mb mb-1" %>
           <% end %>
         </div>
       </div>

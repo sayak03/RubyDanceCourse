@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   resources :courses do
     resources :subscriptions, only: [:new, :create, :destroy]
+    resources :comments, only: [:create, :destroy]
   end
   root "pages#index"
 end

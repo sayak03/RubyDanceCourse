@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :subscriptions
   has_many :courses, through: :subscriptions
-  has_many :videos
+  has_many :comments, dependent: :destroy
 
   rolify
   # Include default devise modules. Others available are:
