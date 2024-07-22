@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :admin_only
   def index
-    @user = User.all
+    @user = User.with_any_role(:newuser)
+    @admins_and_moderators = User.with_any_role(:admin, :moderate)
   end
 
   def edit
@@ -20,9 +21,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    redirect_to users_path, notice: 'User deleted successfully.'
   end
 
   private

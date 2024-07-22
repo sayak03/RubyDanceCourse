@@ -1,0 +1,23 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h1><%= @course.title %></h1>
+    </div>
+    <div class="card-body">
+      <% if current_user.has_role?(:admin) || current_user.has_role?(:moderate) || current_user.subscribed?(@course) %>
+        <p class="card-text"><%= @course.description %></p>
+        <!-- Add more fields here if necessary, like videos or additional content -->
+      <% else %>
+        <p class="card-text">You need to subscribe to view the full content.</p>
+        <%= link_to 'Subscribe', new_course_subscription_path(@course), class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <div class="card-footer text-muted">
+      <%= link_to 'Back to Courses', courses_path, class: "btn btn-secondary" %>
+      <% if current_user.has_role?(:admin) || current_user.has_role?(:moderate) %>
+        <%= link_to 'Edit', edit_course_path(@course), class: "btn btn-secondary" %>
+        <%= link_to 'Delete', course_path(@course), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+      <% end %>
+    </div>
+  </div>
+</div>

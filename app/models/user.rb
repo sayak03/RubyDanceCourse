@@ -1,12 +1,15 @@
 class User < ApplicationRecord
+  has_many :subscriptions
+  has_many :courses, through: :subscriptions
+  has_many :videos
+
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:login]
-  validates :first_name, :username, presence: true, uniqueness: true
-  validates :contact_number, presence: true, length: { minimum: 10, maximum: 10}
-  validates :last_name, presence: true
+  validates :username, presence: true, uniqueness: true
+  validates :contact_number, :first_name, :last_name, presence: true
 
   attr_accessor :login
 
@@ -18,6 +21,10 @@ class User < ApplicationRecord
 
   def assign_default_role
     self.add_role(:newuser) if self.roles.blank?
+  end
+
+  def subscribed?(course)
+    courses.include?(course)
   end
 
   private

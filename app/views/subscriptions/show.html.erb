@@ -1,0 +1,15 @@
+<h1><%= @course.title %></h1>
+<p><%= @course.description %></p>
+
+<% if current_user.has_role?(:admin) || current_user.has_role?(:moderator) %>
+  <%= link_to 'Edit', edit_course_path(@course), class: "btn btn-secondary" %>
+  <%= link_to 'Delete', course_path(@course), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+<% end %>
+
+<% unless current_user.subscribed?(@course) %>
+  <%= link_to 'Subscribe', new_course_subscription_path(@course), class: "btn btn-primary" %>
+<% else %>
+  <p>You are subscribed to this course.</p>
+<% end %>
+
+<%= link_to 'Back to Courses', courses_path, class: "btn btn-secondary" %>

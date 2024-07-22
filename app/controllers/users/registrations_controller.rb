@@ -28,10 +28,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def destroy
     if resource.destroy
       Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
-      set_flash_message! :notice, :destroyed
       redirect_to after_sign_out_path_for(resource_name)
     else
-      set_flash_message! :alert, :could_not_destroy
       redirect_to edit_registration_path(resource)
     end
   end
