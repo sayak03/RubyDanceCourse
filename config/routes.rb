@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   resources :courses do
     resources :subscriptions, only: [:new, :create, :destroy]
     resources :comments, only: [:create, :destroy]
+    resource :like, only: [] do
+      post :toggle
+    end
   end
   root "pages#index"
 end

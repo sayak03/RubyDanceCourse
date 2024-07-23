@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :subscriptions
   has_many :courses, through: :subscriptions
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   rolify
   # Include default devise modules. Others available are:
@@ -25,6 +26,9 @@ class User < ApplicationRecord
 
   def subscribed?(course)
     courses.include?(course)
+  end
+  def liked?(course)
+    likes.exists?(course: course)
   end
 
   private

@@ -3,5 +3,7 @@
 //= require jquery_ujs
 import "@hotwired/turbo-rails"
 import "controllers"
-
+//= require turbolinks
+//= require_tree .
+import "like"
 import "bootstrap"

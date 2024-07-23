@@ -27,19 +27,27 @@
         <% @course.comments.each do |comment| %>
           <li>
             <p><strong ><%= comment.user ? comment.user.first_name : "Unknown User" %>: </strong> <%= comment.content %></p>
-            <% if comment.user == current_user || current_user.has_role?(:admin) %>
+            <% if comment.user == current_user %>
               <%= link_to 'Delete', course_comment_path(@course, comment), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
             <% end %>
           </li>
         <% end %>
       </ul>
     </div>
-    <div class="card-footer text-muted">
-      <%= link_to 'Back to Courses', courses_path, class: "btn btn-secondary" %>
-      <% if current_user.has_role?(:admin) || current_user.has_role?(:moderate) %>
-        <%= link_to 'Edit', edit_course_path(@course), class: "btn btn-secondary" %>
-        <%= link_to 'Delete', course_path(@course), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+    <div class="card-footer text-muted d-flex justify-content-start">
+      <%= button_to toggle_course_like_path(@course), remote: true, method: :post, class: "btn btn-primary me-2" do %>
+        <span class="like-count"><%= @course.likes.count %></span>
+        <% if current_user.liked?(@course) %>
+          <i class="fas fa-heart"></i> Unlike
+        <% else %>
+          <i class="far fa-heart"></i> Like
+        <% end %>
       <% end %>
+      <% if current_user.has_role?(:admin) || current_user.has_role?(:moderate) %>
+        <%= link_to 'Edit', edit_course_path(@course), class: "btn btn-secondary me-2" %>
+        <%= link_to 'Delete', course_path(@course), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger me-2" %>
+      <% end %>
+      <%= link_to 'Back to Courses', courses_path, class: "btn btn-secondary" %>
     </div>
   </div>
 </div>
